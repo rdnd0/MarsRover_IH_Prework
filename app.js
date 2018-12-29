@@ -5,7 +5,7 @@ var rover1 = {
   x: 0,
   y: 0,
   travelLog:[],
-  turn: 0,
+  // turn: 0,
   name: "rover1"
   };
 
@@ -14,22 +14,42 @@ var rover2 = {
   x: 0,
   y: 5,
   travelLog:[],
-  turn: 0,
+  // turn: 0,
   name: "rover2"
   };
+
+var rover3 = {
+    direction: "S", //N, S, W, E
+    x: 5,
+    y: 5,
+    travelLog:[],
+    // turn: 0,
+    name: "rover3"
+    };
+
+var rover4 = {
+    direction: "N", //N, S, W, E
+    x: 10,
+    y: 5,
+    travelLog:[],
+    // turn: 0,
+    name: "rover4"
+    };
+
+var rovers = [rover1, rover2, rover3, rover4];
 
 // Grid
 // ======================
 var grid = [["00", "01", "02", "03", "04", "05", "06", "X", "08", "09"],
-          ["X", "11", "12", "13", "14", '15', '16', '17', '18', '19'],
-          ["20", "21", "22", "23", "24", "25", "26", "27", "X", "29"],
-          ["30", "31", "32", "X", "34", "35", "36", "37", "38", "39"],
-          ["40", "41", "42", "43", "44", "45", "46", "47", "48", "X"],
-          ["50", "51", "52", "53", "X", "55", "56", "57", "58", "59"],
-          ["60", "61", "62", "63", "64", "65", "66", "67", "68", "69"],
-          ["70", "71", "72", "73", "X", "75", "76", "X", "78", "79"],
-          ["X", "81", "82", "83", "84", "85", "86", "87", "88", "89"],
-          ["90", "X", "92", "93", "94", "95", "96", "97", "98", "99"]];
+            ["X", "11", "12", "13", "14", '15', '16', '17', '18', '19'],
+            ["20", "21", "22", "23", "24", "25", "26", "27", "X", "29"],
+            ["30", "31", "32", "X", "34", "35", "36", "37", "38", "39"],
+            ["40", "41", "42", "43", "44", "45", "46", "47", "48", "X"],
+            ["50", "51", "52", "53", "X", "55", "56", "57", "58", "59"],
+            ["60", "61", "62", "63", "64", "65", "66", "67", "68", "69"],
+            ["70", "71", "72", "73", "X", "75", "76", "X", "78", "79"],
+            ["X", "81", "82", "83", "84", "85", "86", "87", "88", "89"],
+            ["90", "X", "92", "93", "94", "95", "96", "97", "98", "99"]];
 // ===================
 
 function turnLeft(rover){
@@ -224,49 +244,32 @@ function moveBackward(rover){
 }
 
 function commands(listOfCommands) {
-  //choosing first player
-  rover1.turn = Math.floor(Math.random()*2);
-  if (rover1.turn === 0){rover2.turn = 1; console.log("first player is rover2");}
-  else {console.log("first player is rover1");}
+  //choosing first player - this would be cool with multiple rovers, but I am not sure how to at this point :)
+  // for (i=0 ; i<rovers.length; i++){
+  //   if(Math.floor(Math.random()*2 === 1)){
+  //     rovers[i].turn = 1;
+  //     break;
+  //   }
+  //   else {rover1.turn = 1;}
+  // }
 
   for (i=0; i<listOfCommands.length; i++) {
-    if (rover1.turn ===1){  
+    for (j=0 ; j<rovers.length; j++){
+ 
       switch (listOfCommands[i]){
           case "r":
-            turnRight(rover1);
+            turnRight(rovers[j]);
             break;
           case "l":
-            turnLeft(rover1);
+            turnLeft(rovers[j]);
             break;
           case "f":
-            moveForward(rover1);
+            moveForward(rovers[j]);
             break;
           case "b":
-            moveBackward(rover1);
+            moveBackward(rovers[j]);
             break;
         }
-        rover1.turn -= 1;
-        rover2.turn +=1;
-      }
-    else if(rover2.turn ===1){
-      switch (listOfCommands[i]){
-        case "r":
-          turnRight(rover2);
-          break;
-        case "l":
-          turnLeft(rover2);
-          break;
-        case "f":
-          moveForward(rover2);
-          break;
-        case "b":
-          moveBackward(rover2);
-          break;
-      }
-      rover2.turn -=1;
-      rover1.turn +=1;
-    }
-
     }
 }
-
+}
